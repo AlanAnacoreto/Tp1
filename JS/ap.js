@@ -1,51 +1,62 @@
-// Lista de tareas
-let tareas = [];
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Tareas</title>
+</head>
+<body>
+    <h1>Lista de Tareas</h1>
 
-// Función para agregar una tarea a la lista
-function agregarTarea() {
-    let nuevaTarea = prompt("Ingresa una nueva tarea:");
-    tareas.push({ tarea: nuevaTarea, completada: false });
-    console.log("Tarea agregada: " + nuevaTarea);
-}
+    <form id="agregarForm">
+        <input type="text" id="nuevaTarea" placeholder="Nueva tarea" required>
+        <button type="submit">Agregar tarea</button>
+    </form>
 
-// Función para mostrar la lista de tareas
-function mostrarTareas() {
-    console.log("Lista de tareas:");
-    for (let i = 0; i < tareas.length; i++) {
-        let estado = tareas[i].completada ? "[X]" : "[ ]";
-        console.log(estado + " " + tareas[i].tarea);
-    }
-}
+    <h2>Tareas:</h2>
+    <ul id="listaTareas">
+        <!-- Las tareas se agregarán aquí dinámicamente -->
+    </ul>
 
-// Función para marcar una tarea como completada
-function marcarCompletada() {
-    let indice = parseInt(prompt("Ingresa el número de la tarea completada:"));
-    if (indice >= 0 && indice < tareas.length) {
-        tareas[indice].completada = true;
-        console.log("Tarea marcada como completada: " + tareas[indice].tarea);
-    } else {
-        console.log("Índice de tarea inválido.");
-    }
-}
+    <script>
+        let tareas = [];
 
-// Ciclo principal del programa
-while (true) {
-    let opcion = prompt("Elige una opción:\n1. Agregar tarea\n2. Marcar tarea como completada\n3. Mostrar tareas\n4. Salir");
+        function mostrarTareas() {
+            const listaTareas = document.getElementById('listaTareas');
+            listaTareas.innerHTML = '';
 
-    switch (opcion) {
-        case "1":
-            agregarTarea();
-            break;
-        case "2":
-            marcarCompletada();
-            break;
-        case "3":
+            for (let i = 0; i < tareas.length; i++) {
+                const tarea = tareas[i];
+                const estado = tarea.completada ? "[X]" : "[ ]";
+
+                const li = document.createElement('li');
+                li.textContent = estado + ' ' + tarea.tarea;
+
+                if (!tarea.completada) {
+                    const botonCompletar = document.createElement('button');
+                    botonCompletar.textContent = 'Completar';
+                    botonCompletar.addEventListener('click', function () {
+                        tarea.completada = true;
+                        mostrarTareas();
+                    });
+                    li.appendChild(botonCompletar);
+                }
+
+                listaTareas.appendChild(li);
+            }
+        }
+
+        document.getElementById('agregarForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            
+            const nuevaTareaInput = document.getElementById('nuevaTarea');
+            const nuevaTarea = nuevaTareaInput.value;
+            tareas.push({ tarea: nuevaTarea, completada: false });
+            nuevaTareaInput.value = '';
+
             mostrarTareas();
-            break;
-        case "4":
-            console.log("¡Hasta luego!");
-            return;
-        default:
-            console.log("Opción inválida.");
-    }
-}
+        });
+
+        mostrarTareas();
+    </script>
+</body>
+</html>
+
