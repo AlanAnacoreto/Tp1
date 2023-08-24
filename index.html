@@ -4,35 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Productos</h1>
-    <ul id="product-list">
-        <li data-id="1" data-name="Producto 1" data-price="10.00">
-            Producto 1 - $10.00 <button class="add-to-cart">Agregar al carrito</button>
-        </li>
-        <li data-id="2" data-name="Producto 2" data-price="15.00">
-            Producto 2 - $15.00 <button class="add-to-cart">Agregar al carrito</button>
-        </li>
-        <!-- Agrega más productos aquí -->
-    </ul>
+    <div class="container">
+        <h1 class="mt-5">Productos</h1>
+        <ul class="list-group" id="product-list">
+            <li class="list-group-item" data-id="1" data-name="Producto 1" data-price="10.00">
+                Producto 1 - $10.00 <button class="btn btn-primary add-to-cart">Agregar al carrito</button>
+            </li>
+            <li class="list-group-item" data-id="2" data-name="Producto 2" data-price="15.00">
+                Producto 2 - $15.00 <button class="btn btn-primary add-to-cart">Agregar al carrito</button>
+            </li>
+            <!-- Agrega más productos aquí -->
+        </ul>
 
-    <h1>Carrito de Compras</h1>
-    <ul id="cart">
-        <!-- Elementos del carrito se agregarán aquí -->
-    </ul>
+        <h1 class="mt-5">Carrito de Compras</h1>
+        <ul class="list-group" id="cart">
+            <!-- Elementos del carrito se agregarán aquí -->
+        </ul>
 
-    <h2>Total: <span id="total">$0.00</span></h2>
+        <h2 class="mt-4">Total: <span id="total">$0.00</span></h2>
 
-    <h2>Agregar al carrito</h2>
-    <input type="number" id="quantity" placeholder="Cantidad">
-    <select id="product-select">
-        <option value="1">Producto 1</option>
-        <option value="2">Producto 2</option>
-        <!-- Agrega más productos aquí -->
-    </select>
-    <button id="add-custom-to-cart">Agregar al carrito</button>
+        <h2 class="mt-5">Agregar al carrito</h2>
+        <div class="mb-3">
+            <input type="number" class="form-control" id="quantity" placeholder="Cantidad">
+        </div>
+        <div class="mb-3">
+            <select class="form-select" id="product-select">
+                <option value="1">Producto 1</option>
+                <option value="2">Producto 2</option>
+                <!-- Agrega más productos aquí -->
+            </select>
+        </div>
+        <button class="btn btn-primary" id="add-custom-to-cart">Agregar al carrito</button>
+    </div>
 
-    <script src="script.as"></script>
+    <script src="script.ap"></script>
 </body>
 </html>
