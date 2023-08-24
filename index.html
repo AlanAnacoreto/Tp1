@@ -3,9 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Carrito de Compras</title>
 </head>
 <body>
-    <script src="ap.js" defer></script>
+    <h1>Productos</h1>
+    <ul id="product-list">
+        <li data-id="1" data-name="Producto 1" data-price="10.00">
+            Producto 1 - $10.00 <button class="add-to-cart">Agregar al carrito</button>
+        </li>
+        <li data-id="2" data-name="Producto 2" data-price="15.00">
+            Producto 2 - $15.00 <button class="add-to-cart">Agregar al carrito</button>
+        </li>
+        <!-- Agrega más productos aquí -->
+    </ul>
+
+    <h1>Carrito de Compras</h1>
+    <ul id="cart">
+        <!-- Elementos del carrito se agregarán aquí -->
+    </ul>
+
+    <h2>Total: <span id="total">$0.00</span></h2>
+
+    <h2>Agregar al carrito</h2>
+    <input type="number" id="quantity" placeholder="Cantidad">
+    <select id="product-select">
+        <option value="1">Producto 1</option>
+        <option value="2">Producto 2</option>
+        <!-- Agrega más productos aquí -->
+    </select>
+    <button id="add-custom-to-cart">Agregar al carrito</button>
+
+    <script src="script.as"></script>
 </body>
 </html>

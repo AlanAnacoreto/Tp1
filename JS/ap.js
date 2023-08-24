@@ -1,94 +1,56 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Lista de Tareas</title>
-</head>
-<body>
-    <h1>Lista de Tareas</h1>
+document.addEventListener("DOMContentLoaded", function () {
+    const products = [
+        { id: 1, name: "Producto 1", price: 10.00 },
+        { id: 2, name: "Producto 2", price: 15.00 }
+        // Agrega más productos aquí
+    ];
 
-    <form id="agregarForm">
-        <input type="text" id="nuevaTarea" placeholder="Nueva tarea" required>
-        <button type="submit">Agregar tarea</button>
-    </form>
+    const addToCartButtons = document.querySelectorAll(".add-to-cart");
+    const customAddToCartButton = document.getElementById("add-custom-to-cart");
+    const cartList = document.getElementById("cart");
+    const totalElement = document.getElementById("total");
+    const quantityInput = document.getElementById("quantity");
+    const productSelect = document.getElementById("product-select");
 
-    <h2>Tareas:</h2>
-    <ul id="listaTareas">
-        <!-- Las tareas se agregarán aquí dinámicamente -->
-    </ul>
+    addToCartButtons.forEach(button => {
+        button.addEventListener("click", addToCart);
+    });
 
-    <script>
-        let tareas = [];
+    customAddToCartButton.addEventListener("click", addToCart);
 
-        function mostrarTareas() {
-            const listaTareas = document.getElementById('listaTareas');
-            listaTareas.innerHTML = '';
+    function addToCart(event) {
+        let productId = null;
+        let productName = "";
+        let productPrice = 0.00;
 
-            for (let i = 0; i < tareas.length; i++) {
-                const tarea = tareas[i];
-                const estado = tarea.completada ? "[X]" : "[ ]";
+        if (event.target.id === "add-custom-to-cart") {
+            const selectedProductId = parseInt(productSelect.value);
+            const selectedProduct = products.find(product => product.id === selectedProductId);
 
-                const li = document.createElement('li');
-                li.textContent = estado + ' ' + tarea.tarea;
-
-                if (!tarea.completada) {
-                    const botonCompletar = document.createElement('button');
-                    botonCompletar.textContent = 'Completar';
-                    botonCompletar.addEventListener('click', function () {
-                        tarea.completada = true;
-                        mostrarTareas();
-                    });
-                    li.appendChild(botonCompletar);
-                }
-
-                listaTareas.appendChild(li);
+            if (selectedProduct) {
+                productId = selectedProduct.id;
+                productName = selectedProduct.name;
+                productPrice = selectedProduct.price;
             }
+        } else {
+            const product = event.target.parentElement;
+            productId = parseInt(product.dataset.id);
+            productName = product.dataset.name;
+            productPrice = parseFloat(product.dataset.price);
         }
 
-        document.getElementById('agregarForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-            
-            const nuevaTareaInput = document.getElementById('nuevaTarea');
-            const nuevaTarea = nuevaTareaInput.value;
-            tareas.push({ tarea: nuevaTarea, completada: false });
-            nuevaTareaInput.value = '';
+        const quantity = parseInt(quantityInput.value) || 1;
 
-            mostrarTareas();
-        });
+        const cartItem = document.createElement("li");
+        cartItem.innerHTML = `${productName} x${quantity} - $${(productPrice * quantity).toFixed(2)}`;
+        cartList.appendChild(cartItem);
 
-        function marcarCompletada() {
-            let indice = parseInt(prompt("Ingresa el número de la tarea completada:"));
-            if (indice >= 0 && indice < tareas.length) {
-                tareas[indice].completada = true;
-                mostrarTareas();
-            } else {
-                console.log("Índice de tarea inválido.");
-            }
-        }
+        updateTotal(productPrice * quantity);
+    }
 
-        function cicloPrincipal() {
-            while (true) {
-                let opcion = prompt("Elige una opción:\n1. Agregar tarea\n2. Marcar tarea como completada\n3. Mostrar tareas\n4. Salir");
-
-                switch (opcion) {
-                    case "1":
-                        agregarTarea();
-                        break;
-                    case "2":
-                        marcarCompletada();
-                        break;
-                    case "3":
-                        mostrarTareas();
-                        break;
-                    case "4":
-                        console.log("¡Hasta luego!");
-                        return;
-                    default:
-                        console.log("Opción inválida.");
-                }
-            }
-        }
-
-        cicloPrincipal();
-    </script>
-</body>
-</html>
+    function updateTotal(price) {
+        let total = parseFloat(totalElement.innerText.replace("$", ""));
+        total += price;
+        totalElement.innerText = "$" + total.toFixed(2);
+    }
+});
