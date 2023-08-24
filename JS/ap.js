@@ -55,8 +55,40 @@
             mostrarTareas();
         });
 
-        mostrarTareas();
+        function marcarCompletada() {
+            let indice = parseInt(prompt("Ingresa el número de la tarea completada:"));
+            if (indice >= 0 && indice < tareas.length) {
+                tareas[indice].completada = true;
+                mostrarTareas();
+            } else {
+                console.log("Índice de tarea inválido.");
+            }
+        }
+
+        function cicloPrincipal() {
+            while (true) {
+                let opcion = prompt("Elige una opción:\n1. Agregar tarea\n2. Marcar tarea como completada\n3. Mostrar tareas\n4. Salir");
+
+                switch (opcion) {
+                    case "1":
+                        agregarTarea();
+                        break;
+                    case "2":
+                        marcarCompletada();
+                        break;
+                    case "3":
+                        mostrarTareas();
+                        break;
+                    case "4":
+                        console.log("¡Hasta luego!");
+                        return;
+                    default:
+                        console.log("Opción inválida.");
+                }
+            }
+        }
+
+        cicloPrincipal();
     </script>
 </body>
 </html>
-
