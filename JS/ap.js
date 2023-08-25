@@ -2,9 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const products = [
         { id: 1, name: "Producto 1", price: 10.00 },
         { id: 2, name: "Producto 2", price: 15.00 }
-        // Agrega más productos aquí
+        // Agrega mas productos aca
     ];
-
+//debo de aclarar todo //
     const addToCartButtons = document.querySelectorAll(".add-to-cart");
     const customAddToCartButton = document.getElementById("add-custom-to-cart");
     const cartList = document.getElementById("cart");
