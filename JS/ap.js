@@ -54,3 +54,11 @@ document.addEventListener("DOMContentLoaded", function () {
         totalElement.innerText = "$" + total.toFixed(2);
     }
 });
+document.addEventListener("DOMContentLoaded", function () {
+    let products = [];  
+
+    // Cargamos los productos desde el archivo JSON
+    fetch('products.json')
+        .then(response => response.json())
+        .then(data => products = data)
+        .catch(error => console.error('Error:', error));
